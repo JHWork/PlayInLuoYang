@@ -4,11 +4,18 @@
 //
 //  Created by 小尼 on 15/10/3.
 //  Copyright © 2015年 N. All rights reserved.
-//
+//   baiduMapKey : wLEcfH1q0M2z0eFWjHOEvCZG
 
 #import "AppDelegate.h"
+#import "NFirstPageNaviagtion.h"
+#import "NFirstPageVC.h"
+//#import "NMapTableVC.h"
+#import "NUserVC.h"
+#import "NTraveTestVC.h"
+#import "NMapViewController.h"
 
-@interface AppDelegate ()
+
+@interface AppDelegate ()//<BMKGeneralDelegate>
 
 @end
 
@@ -16,9 +23,79 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     // Override point for customization after application launch.
+    UIWindow *window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    
+    UITabBarController *tabbarVc = [[UITabBarController alloc]init];
+ 
+    //1首页控制器
+    NFirstPageVC *firstPage = [[NFirstPageVC alloc]init];
+    NFirstPageNaviagtion *firstNavigation = [[NFirstPageNaviagtion alloc]initWithRootViewController:firstPage];
+    firstNavigation.tabBarItem.title = @"首页";
+//    firstNavigation.tabBarItem.badgeValue = @"1";
+    firstNavigation.tabBarItem.image = [UIImage imageNamed:@"tabbar_first"];
+    
+    //2地图控制器
+    NMapViewController *mapVc = [[NMapViewController alloc]init];
+    UINavigationController *mapNavigation =[[UINavigationController alloc]initWithRootViewController:mapVc];
+    mapNavigation.tabBarItem.title = @"附近";
+    mapNavigation.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
+    //3攻略
+    NTraveTestVC *guideVc =[[NTraveTestVC alloc]init];
+    UINavigationController *guideNagivation = [[UINavigationController alloc]initWithRootViewController:guideVc];
+    guideNagivation.tabBarItem.title = @"游记";
+    guideNagivation.tabBarItem.image = [UIImage imageNamed:@"tabBar_new"];
+    
+    //4用户信息控制器
+    NUserVC *userVc = [[NUserVC alloc]init];
+    UINavigationController *userNavigation = [[UINavigationController alloc]initWithRootViewController:userVc];
+    userNavigation.tabBarItem.title = @"个人";
+    userNavigation.tabBarItem.image = [UIImage imageNamed:@"tab_buddy_nor"];
+    
+    tabbarVc.viewControllers = @[firstNavigation,mapNavigation,guideNagivation,userNavigation];
+    
+    
+//    //百度地图
+//    _mapManager = [[BMKMapManager alloc]init];
+//    // 开始请求授权和查看网络状态
+//    BOOL ret = [_mapManager start:@"wLEcfH1q0M2z0eFWjHOEvCZG"  generalDelegate:self];
+//    if (!ret) {
+//        NSLog(@"manager start failed!");
+//    }
+    
+    
+    
+    window.rootViewController = tabbarVc;
+    [window makeKeyAndVisible];
+    self.window = window;
+    
+    
     return YES;
 }
+
+
+//- (void)onGetNetworkState:(int)iError
+//{
+//    if (iError) {
+//        NSLog(@"联网失败");
+//    } else {
+//        NSLog(@"联网成功");
+//    }
+//}
+//
+//- (void)onGetPermissionState:(int)iError
+//{
+//    if (iError) {
+//        NSLog(@"授权失败");
+//    } else {
+//        NSLog(@"授权成功");
+//    }
+//}
+
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
