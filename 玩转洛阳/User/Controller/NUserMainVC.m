@@ -234,6 +234,7 @@
         } else {
              NSLog(@"签到失败");
             [MBProgressHUD showError:@"签到失败"];
+            [MBProgressHUD hideHUD];
         }
     }];
 
@@ -383,6 +384,7 @@
                 }];
             }else{
                 NSLog(@"图像上传");
+                [MBProgressHUD hideHUD];
                 [MBProgressHUD showError:@"图像上传失败"];
             }
             

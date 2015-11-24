@@ -184,6 +184,7 @@
 //点击确认并登陆按钮
 -(void)sureAndRegisterClick{
     NSLog(@"注册:手机号:%@, 验证码:%@, 密码:%@, 用户名:%@", self.phoneNumber.text, self.securityCode.text, self.userName.text, self.passward.text);
+    
     [BmobUser signOrLoginInbackgroundWithMobilePhoneNumber:self.phoneNumber.text andSMSCode:self.securityCode.text block:^(BmobUser *user, NSError *error) {
         if (error) {//注册失败
             [MBProgressHUD showError:@"失败"];
@@ -197,11 +198,11 @@
                     NSLog(@"失败");
                 } else {//修改信息成功，提示用户注册成功
                     [MBProgressHUD showSuccess:@"注册成功"];
+                    [MBProgressHUD hideHUD];
                 }
             }];
             //跳转登陆界面
             [self.navigationController popToRootViewControllerAnimated:YES];
-//            UITabBarController *tableView = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
           
         }
     }];

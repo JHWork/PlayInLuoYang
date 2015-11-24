@@ -60,10 +60,12 @@
         if (isSuccessful) {
             //成功
             [MBProgressHUD showSuccess:@"密码已重置"];
+            [MBProgressHUD hideHUD];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
             NSLog(@"失败-----%@", error);
             [MBProgressHUD showError:@"操作失败"];
+            [MBProgressHUD hideHUD];
         }
     }];
 

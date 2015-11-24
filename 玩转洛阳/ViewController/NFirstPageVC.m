@@ -41,7 +41,7 @@ static NSString *reuseHeadId = @"collectionHeadId";
     [self.dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     
     //请求数据
-    BmobQuery *query = [BmobQuery queryWithClassName:@"article"];
+    BmobQuery *query = [BmobQuery queryWithClassName:@"article"];   
     
     [query orderByAscending:@"index"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {

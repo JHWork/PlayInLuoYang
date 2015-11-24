@@ -135,20 +135,24 @@
                     //游记控制器
                    
                     [MBProgressHUD showSuccess:@"提交成功"];
+                    [MBProgressHUD hideHUD];
                     [self.navigationController popViewControllerAnimated:YES];
                 
                 } else {
                     NSLog(@"失败---%@", error);
-                    [MBProgressHUD showError:@"显示失败"];
+                    [MBProgressHUD showError:@"提交失败"];
+                    [MBProgressHUD hideHUD];
                 }
             }];
         } else {
             NSLog(@"游记头图上传失败");
-           [MBProgressHUD showError:@"显示失败"];
+           [MBProgressHUD showError:@"图片上传失败"];
+            [MBProgressHUD hideHUD];
         }
         
     }];
 
+    [MBProgressHUD hideHUD];
 }
 //压缩图片
 - (UIImage *)newImageWithimage:(UIImage *)image newSize:(CGSize)newSize {
