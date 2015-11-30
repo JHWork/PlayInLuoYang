@@ -1,0 +1,29 @@
+//
+//  PlayInLuoYang.pch
+//  玩转洛阳
+//
+//  Created by 小尼 on 15/11/24.
+//  Copyright © 2015年 N. All rights reserved.
+//
+
+#ifdef __OBJC__
+
+#import "UIView+Extension.h"
+
+
+//颜色
+#define MyColor(r,g,b) [UIColor colorWithHue:(r)/255.0 saturation:(g)/255.0 brightness:(b)/255.0 alpha:1.0]
+
+#define RGBColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+
+#define screenW [UIScreen mainScreen].bounds.size.width
+#define screenH [UIScreen mainScreen].bounds.size.height
+
+
+#ifdef DEBUG //处于开发阶段
+#define MyLog(...) NSLog(__VA_ARGS__)
+#else  //发布阶段
+#define MyLog(...)
+#endif
+
+#endif

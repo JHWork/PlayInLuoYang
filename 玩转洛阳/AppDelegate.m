@@ -7,12 +7,12 @@
 //   baiduMapKey : wLEcfH1q0M2z0eFWjHOEvCZG
 
 #import "AppDelegate.h"
-#import "NFirstPageNaviagtion.h"
-#import "NFirstPageVC.h"
-//#import "NMapTableVC.h"
-#import "NUserVC.h"
-#import "NTraveTestVC.h"
-#import "NMapViewController.h"
+#import "NTabBarVC.h"
+#import "NLoginController.h"
+#import <BmobSDK/Bmob.h>
+#import "SDWebImageManager.h"
+
+
 
 
 @interface AppDelegate ()//<BMKGeneralDelegate>
@@ -28,46 +28,16 @@
     UIWindow *window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     
     
-    UITabBarController *tabbarVc = [[UITabBarController alloc]init];
- 
-    //1首页控制器
-    NFirstPageVC *firstPage = [[NFirstPageVC alloc]init];
-    NFirstPageNaviagtion *firstNavigation = [[NFirstPageNaviagtion alloc]initWithRootViewController:firstPage];
-    firstNavigation.tabBarItem.title = @"首页";
-//    firstNavigation.tabBarItem.badgeValue = @"1";
-    firstNavigation.tabBarItem.image = [UIImage imageNamed:@"tabbar_first"];
-    
-    //2地图控制器
-    NMapViewController *mapVc = [[NMapViewController alloc]init];
-    UINavigationController *mapNavigation =[[UINavigationController alloc]initWithRootViewController:mapVc];
-    mapNavigation.tabBarItem.title = @"附近";
-    mapNavigation.tabBarItem.image = [UIImage imageNamed:@"tabbar_discover"];
-    //3攻略
-    NTraveTestVC *guideVc =[[NTraveTestVC alloc]init];
-    UINavigationController *guideNagivation = [[UINavigationController alloc]initWithRootViewController:guideVc];
-    guideNagivation.tabBarItem.title = @"游记";
-    guideNagivation.tabBarItem.image = [UIImage imageNamed:@"tabBar_new"];
-    
-    //4用户信息控制器
-    NUserVC *userVc = [[NUserVC alloc]init];
-    UINavigationController *userNavigation = [[UINavigationController alloc]initWithRootViewController:userVc];
-    userNavigation.tabBarItem.title = @"个人";
-    userNavigation.tabBarItem.image = [UIImage imageNamed:@"tab_buddy_nor"];
-    
-    tabbarVc.viewControllers = @[firstNavigation,mapNavigation,guideNagivation,userNavigation];
+
+    BmobUser *user = [BmobUser getCurrentUser];
+    if (user) {
+      window.rootViewController = [[NTabBarVC alloc]init];
+
+    } else {
+      window.rootViewController = [[NLoginController alloc]init];
+    }
     
     
-//    //百度地图
-//    _mapManager = [[BMKMapManager alloc]init];
-//    // 开始请求授权和查看网络状态
-//    BOOL ret = [_mapManager start:@"wLEcfH1q0M2z0eFWjHOEvCZG"  generalDelegate:self];
-//    if (!ret) {
-//        NSLog(@"manager start failed!");
-//    }
-    
-    
-    
-    window.rootViewController = tabbarVc;
     [window makeKeyAndVisible];
     self.window = window;
     
@@ -119,6 +89,14 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+-(void)applicationDidReceiveMemoryWarning:(UIApplication *)application{
+    //清除图片缓存
+    SDWebImageManager *mgr = [SDWebImageManager sharedManager];
+    [mgr cancelAll];
+    
+    [mgr.imageCache clearMemory];
 }
 
 #pragma mark - Core Data stack
