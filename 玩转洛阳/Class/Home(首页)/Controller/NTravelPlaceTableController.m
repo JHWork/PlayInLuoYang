@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
     
     //请求数据
         BmobQuery *mapQuery = [BmobQuery queryWithClassName:@"travePlace"];

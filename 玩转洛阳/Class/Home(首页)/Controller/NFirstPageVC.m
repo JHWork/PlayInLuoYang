@@ -37,6 +37,7 @@ static NSString *reuseHeadId = @"collectionHeadId";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"首页";
+    self.navigationController.navigationBarHidden = NO;
     
     
     //设置collection

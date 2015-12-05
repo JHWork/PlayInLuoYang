@@ -11,11 +11,14 @@
 #import "NLoginController.h"
 #import <BmobSDK/Bmob.h>
 #import "SDWebImageManager.h"
+#import "MBProgressHUD+Extend.h"
+
+#import "WeiboSDK.h"
+//#import "UMSocial.h"
 
 
 
-
-@interface AppDelegate ()//<BMKGeneralDelegate>
+@interface AppDelegate ()// <WeiboSDKDelegate>  //<BMKGeneralDelegate>
 
 @end
 
@@ -27,7 +30,11 @@
     // Override point for customization after application launch.
     UIWindow *window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     
+//    [UMSocialData setAppKey:@"559751f067e58e438400466d"];
+//    [UMSocialConfig showNotInstallPlatforms:nil];
     
+//    [WeiboSDK enableDebugMode:YES];
+//    [WeiboSDK registerApp:kAppKey];
 
     BmobUser *user = [BmobUser getCurrentUser];
     if (user) {
@@ -98,6 +105,33 @@
     
     [mgr.imageCache clearMemory];
 }
+#pragma mark 微博登陆
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+//    return [WeiboSDK handleOpenURL:url delegate:self];
+//}
+//
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+//    return [WeiboSDK handleOpenURL:url delegate:self];
+//}
+//
+//- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
+//    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
+//    {
+//        
+//    }
+//    else if ([response isKindOfClass:WBAuthorizeResponse.class])//授权请求
+//    {
+//        [MBProgressHUD showMessage:@"正在登录中"];
+//        
+//        NSDictionary *dic = @{@"access_token":[(WBAuthorizeResponse *)response accessToken],@"uid":[(WBAuthorizeResponse *)response userID],@"expirationDate":[(WBAuthorizeResponse *)response expirationDate]};
+//        
+//        [BmobUser loginInBackgroundWithAuthorDictionary:dic platform:BmobSNSPlatformSinaWeibo block:^(BmobUser *user, NSError *error) {
+//            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication].windows lastObject]];
+//            NTabBarVC *tabBarController = [[NTabBarVC alloc] init];
+//            self.window.rootViewController = tabBarController;
+//        }];
+//    }
+//}
 
 #pragma mark - Core Data stack
 

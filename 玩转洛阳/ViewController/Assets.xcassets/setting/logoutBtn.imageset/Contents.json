@@ -13,14 +13,14 @@
           "height" : 1
         },
         "cap-insets" : {
-          "bottom" : 10,
-          "top" : 10,
-          "right" : 10,
-          "left" : 10
+          "bottom" : 8,
+          "top" : 8,
+          "right" : 8,
+          "left" : 8
         }
       },
       "idiom" : "universal",
-      "filename" : "roundBlueRect2@2x.png",
+      "filename" : "logoutBtn@2x.png",
       "scale" : "2x"
     },
     {

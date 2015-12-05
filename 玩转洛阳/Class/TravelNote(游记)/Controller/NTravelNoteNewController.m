@@ -57,8 +57,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationController.navigationBarHidden = NO;
     
-    
+
 }
 
 
@@ -361,6 +362,10 @@
     return _goodBtn;
 }
 
+-(void)hideLikeBtn{
+   
+    self.goodBtn.hidden = YES;
+}
 
 /*
 #pragma mark - Navigation

@@ -4,7 +4,7 @@
 //
 //  Created by 小尼 on 15/11/26.
 //  Copyright © 2015年 N. All rights reserved.
-//
+//  新
 
 #import <UIKit/UIKit.h>
 
@@ -13,4 +13,7 @@
 
 @property(nonatomic,strong)NtraveModelTest *traveModels;
 
+
+/**隐藏收藏按钮*/
+-(void)hideLikeBtn;
 @end
