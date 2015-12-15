@@ -14,11 +14,12 @@
 #import "MBProgressHUD+Extend.h"
 
 #import "WeiboSDK.h"
-//#import "UMSocial.h"
+#import "UMSocial.h"
+#import "UMSocialSinaSSOHandler.h"
 
 
 
-@interface AppDelegate ()// <WeiboSDKDelegate>  //<BMKGeneralDelegate>
+@interface AppDelegate () //<BMKGeneralDelegate> // <WeiboSDKDelegate>
 
 @end
 
@@ -30,8 +31,10 @@
     // Override point for customization after application launch.
     UIWindow *window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     
-//    [UMSocialData setAppKey:@"559751f067e58e438400466d"];
-//    [UMSocialConfig showNotInstallPlatforms:nil];
+    //友盟sso分享
+    [UMSocialData setAppKey:@"566fbde067e58ef87a001128"];
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3247381098" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
+    [UMSocialConfig showNotInstallPlatforms:nil];
     
 //    [WeiboSDK enableDebugMode:YES];
 //    [WeiboSDK registerApp:kAppKey];
@@ -52,6 +55,15 @@
     return YES;
 }
 
+//分享－－回调
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
 
 //- (void)onGetNetworkState:(int)iError
 //{

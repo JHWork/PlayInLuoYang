@@ -1,10 +1,13 @@
 PODS:
   - BmobSDK (1.6.5)
+  - UMengSocial (4.4)
 
 DEPENDENCIES:
   - BmobSDK
+  - UMengSocial (~> 4.3)
 
 SPEC CHECKSUMS:
   BmobSDK: 9928a9135a3a7823c6d8bd2bcd9baffeb8e6289a
+  UMengSocial: aba7296602310385114d82c255539a7bef3b7ab0
 
 COCOAPODS: 0.38.2
