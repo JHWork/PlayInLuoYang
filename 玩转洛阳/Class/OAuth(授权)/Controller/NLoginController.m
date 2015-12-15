@@ -17,7 +17,7 @@
 
 @property (nonatomic, weak) NLoginButton *loginBtn;
 
-//@property (nonatomic, weak) NLoginButton *weiboLoginBtn;
+@property (nonatomic, weak) NLoginButton *weiboLoginBtn;
 
 @property (nonatomic, weak) NLoginButton *registerBtn;
 
@@ -61,22 +61,22 @@
     self.loginBtn.centerY = self.view.height * 0.80;
     
     //微博登录按钮
-//    [self.weiboLoginBtn setTitle:@"微博登录" forState:UIControlStateNormal];
-//    [self.weiboLoginBtn addTarget:self action:@selector(weiboLogin) forControlEvents:UIControlEventTouchUpInside];
-//    self.weiboLoginBtn.width = (_loginBtn.width - 10) / 2;
-//    self.weiboLoginBtn.height = btnH;
-//    self.weiboLoginBtn.x = _loginBtn.x;
-//    self.weiboLoginBtn.y = CGRectGetMaxY(_loginBtn.frame) + 10;
+    [self.weiboLoginBtn setTitle:@"微博登录" forState:UIControlStateNormal];
+    [self.weiboLoginBtn addTarget:self action:@selector(weiboLogin) forControlEvents:UIControlEventTouchUpInside];
+    self.weiboLoginBtn.width = (_loginBtn.width - 10) / 2;
+    self.weiboLoginBtn.height = btnH;
+    self.weiboLoginBtn.x = _loginBtn.x;
+    self.weiboLoginBtn.y = CGRectGetMaxY(_loginBtn.frame) + 10;
     
     //注册按钮
     [self.registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [self.registerBtn addTarget:self action:@selector(registerClick) forControlEvents:UIControlEventTouchUpInside];
-    self.registerBtn.width = screenW - 2 * border;    //(_loginBtn.width - 10) / 2;
+    self.registerBtn.width =(_loginBtn.width - 10) / 2;   // screenW - 2 * border
     self.registerBtn.height = btnH;
-//    self.registerBtn.x = CGRectGetMaxX(_weiboLoginBtn.frame) + 10;
-//    self.registerBtn.y = CGRectGetMaxY(_loginBtn.frame) + 10;
-    self.registerBtn.centerX = self.view.centerX;
-    self.registerBtn.y =  CGRectGetMaxY(_loginBtn.frame) + 10;
+    self.registerBtn.x = CGRectGetMaxX(_weiboLoginBtn.frame) + 10;
+    self.registerBtn.y = CGRectGetMaxY(_loginBtn.frame) + 10;
+//    self.registerBtn.centerX = self.view.centerX;
+//    self.registerBtn.y =  CGRectGetMaxY(_loginBtn.frame) + 10;
 
 
 }
@@ -133,19 +133,19 @@
 
 #warning 微博登陆
 //点击微博登录按钮
-//-(void)weiboLogin{
-//    MyLog(@"点击微博登录");
-//    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
-//    request.redirectURI = kRedirectURI;
-//    request.scope = @"all";
-//    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
-//                         @"Other_Info_1": [NSNumber numberWithInt:123],
-//                         @"Other_Info_2": @[@"obj1", @"obj2"],
-//                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
-//    [WeiboSDK sendRequest:request];
-//
-//
-//}
+-(void)weiboLogin{
+    MyLog(@"点击微博登录");
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = kRedirectURI;
+    request.scope = @"all";
+    request.userInfo = @{@"SSO_From": @"SendMessageToWeiboViewController",
+                         @"Other_Info_1": [NSNumber numberWithInt:123],
+                         @"Other_Info_2": @[@"obj1", @"obj2"],
+                         @"Other_Info_3": @{@"key1": @"obj1", @"key2": @"obj2"}};
+    [WeiboSDK sendRequest:request];
+
+
+}
 
 //点击注册按钮
 -(void)registerClick{
@@ -165,14 +165,14 @@
     return _loginBtn;
 }
 
-//- (NLoginButton *)weiboLoginBtn {
-//    if (_weiboLoginBtn == nil) {
-//        NLoginButton *loginBtn = [[NLoginButton alloc] init];
-//        _weiboLoginBtn = loginBtn;
-//        [self.view addSubview:_weiboLoginBtn];
-//    }
-//    return _weiboLoginBtn;
-//}
+- (NLoginButton *)weiboLoginBtn {
+    if (_weiboLoginBtn == nil) {
+        NLoginButton *loginBtn = [[NLoginButton alloc] init];
+        _weiboLoginBtn = loginBtn;
+        [self.view addSubview:_weiboLoginBtn];
+    }
+    return _weiboLoginBtn;
+}
 
 - (NLoginButton *)registerBtn {
     if (_registerBtn == nil) {

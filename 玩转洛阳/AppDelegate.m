@@ -19,7 +19,7 @@
 
 
 
-@interface AppDelegate () //<BMKGeneralDelegate> // <WeiboSDKDelegate>
+@interface AppDelegate () <WeiboSDKDelegate> //<BMKGeneralDelegate>
 
 @end
 
@@ -33,11 +33,10 @@
     
     //友盟sso分享
     [UMSocialData setAppKey:@"566fbde067e58ef87a001128"];
-//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3247381098" RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
     [UMSocialConfig showNotInstallPlatforms:nil];
-    
-//    [WeiboSDK enableDebugMode:YES];
-//    [WeiboSDK registerApp:kAppKey];
+    //微博登陆
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:kAppKey];
 
     BmobUser *user = [BmobUser getCurrentUser];
     if (user) {
@@ -56,14 +55,14 @@
 }
 
 //分享－－回调
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    BOOL result = [UMSocialSnsService handleOpenURL:url];
-    if (result == FALSE) {
-        //调用其他SDK，例如支付宝SDK等
-    }
-    return result;
-}
+//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+//{
+//    BOOL result = [UMSocialSnsService handleOpenURL:url];
+//    if (result == FALSE) {
+//        //调用其他SDK，例如支付宝SDK等
+//    }
+//    return result;
+//}
 
 //- (void)onGetNetworkState:(int)iError
 //{
@@ -118,32 +117,45 @@
     [mgr.imageCache clearMemory];
 }
 #pragma mark 微博登陆
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-//    return [WeiboSDK handleOpenURL:url delegate:self];
-//}
-//
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-//    return [WeiboSDK handleOpenURL:url delegate:self];
-//}
-//
-//- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
-//    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
-//    {
-//        
-//    }
-//    else if ([response isKindOfClass:WBAuthorizeResponse.class])//授权请求
-//    {
-//        [MBProgressHUD showMessage:@"正在登录中"];
-//        
-//        NSDictionary *dic = @{@"access_token":[(WBAuthorizeResponse *)response accessToken],@"uid":[(WBAuthorizeResponse *)response userID],@"expirationDate":[(WBAuthorizeResponse *)response expirationDate]};
-//        
-//        [BmobUser loginInBackgroundWithAuthorDictionary:dic platform:BmobSNSPlatformSinaWeibo block:^(BmobUser *user, NSError *error) {
-//            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication].windows lastObject]];
-//            NTabBarVC *tabBarController = [[NTabBarVC alloc] init];
-//            self.window.rootViewController = tabBarController;
-//        }];
-//    }
-//}
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [WeiboSDK handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [WeiboSDK handleOpenURL:url delegate:self];
+}
+
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
+    if ([response isKindOfClass:WBSendMessageToWeiboResponse.class])
+    {
+        
+    }
+    else if ([response isKindOfClass:WBAuthorizeResponse.class])//授权请求
+    {
+        
+        [MBProgressHUD showMessage:@"正在登录中"];
+        if ([(WBAuthorizeResponse *)response accessToken] == nil) {
+            [MBProgressHUD hideHUD];
+            return;
+        }
+        if ([(WBAuthorizeResponse *)response userID] == nil) {
+            [MBProgressHUD hideHUD];
+            return;
+        }
+        if ([(WBAuthorizeResponse *)response expirationDate] == nil) {
+            [MBProgressHUD hideHUD];
+            return;
+        }
+        
+        NSDictionary *dic = @{@"access_token":[(WBAuthorizeResponse *)response accessToken],@"uid":[(WBAuthorizeResponse *)response userID],@"expirationDate":[(WBAuthorizeResponse *)response expirationDate]};
+        
+        [BmobUser loginInBackgroundWithAuthorDictionary:dic platform:BmobSNSPlatformSinaWeibo block:^(BmobUser *user, NSError *error) {
+            [MBProgressHUD hideHUDForView:[[UIApplication sharedApplication].windows lastObject]];
+            NTabBarVC *tabBarController = [[NTabBarVC alloc] init];
+            self.window.rootViewController = tabBarController;
+        }];
+    }
+}
 
 #pragma mark - Core Data stack
 
